@@ -5,7 +5,7 @@
 **Your GitHub contributions as a Bloomberg / TradingView-style terminal.**
 Candlesticks, volume, heatmap, streaks, and a fictional Developer Index, as a pure SVG for your profile README.
 
-[![CI](https://github.com/OWNER/gh-trading-terminal/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/gh-trading-terminal/actions/workflows/ci.yml)
+[![CI](https://github.com/hanzlabaig-dev/gh-trading-terminal/actions/workflows/ci.yml/badge.svg)](https://github.com/hanzlabaig-dev/gh-trading-terminal/actions/workflows/ci.yml)
 ![license](https://img.shields.io/badge/license-MIT-green) ![deps](https://img.shields.io/badge/dependencies-0-brightgreen)
 
 <img src="assets/preview-dark.svg" alt="Preview (sample data)" width="100%">
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: OWNER/gh-trading-terminal@v1
+      - uses: hanzlabaig-dev/gh-trading-terminal@v1
         with:
           days: 90
           theme: tradingview
@@ -65,7 +65,7 @@ Private contributions: create a token with `read:user`, save it as repo secret `
 **CLI** (Node 18.3+, zero dependencies):
 
 ```
-git clone https://github.com/OWNER/gh-trading-terminal && cd gh-trading-terminal
+git clone https://github.com/hanzlabaig-dev/gh-trading-terminal && cd gh-trading-terminal
 npm test
 npm run demo                                   # synthetic data, no token
 GITHUB_TOKEN=xxx node src/cli.js --user YOU --from 2026-01-01 --to 2026-11-22 --theme bloomberg --out terminal.svg

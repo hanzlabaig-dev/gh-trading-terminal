@@ -1,6 +1,6 @@
 name: GitHub Trading Terminal
 description: Render your GitHub contributions as a Bloomberg/TradingView-style candlestick terminal (SVG) and commit it to your profile repo.
-author: OWNER
+author: hanzlabaig-dev
 branding:
   icon: trending-up
   color: green
