@@ -1,0 +1,62 @@
+name: GitHub Trading Terminal
+description: Render your GitHub contributions as a Bloomberg/TradingView-style candlestick terminal (SVG) and commit it to your profile repo.
+author: OWNER
+branding:
+  icon: trending-up
+  color: green
+inputs:
+  username:
+    description: GitHub login to chart
+    default: ${{ github.repository_owner }}
+  token:
+    description: Token for the GitHub API. Use a PAT with read:user to include private contributions.
+    default: ${{ github.token }}
+  days:
+    description: Number of days to chart (14-730)
+    default: '90'
+  theme:
+    description: Theme for terminal-dark.svg (tradingview, bloomberg, midnight)
+    default: tradingview
+  light-theme:
+    description: Theme for terminal-light.svg
+    default: light
+  output-dir:
+    description: Folder (in the checked-out repo) for the generated SVGs
+    default: assets
+  show:
+    description: Panels to show, comma separated, or "all" (stats,heatmap,weekly,monthly,volume,tape,sma,bands)
+    default: ''
+  extra-args:
+    description: Extra CLI flags, e.g. "--colorblind true --hide tape"
+    default: ''
+  commit:
+    description: Commit and push the SVGs (needs permissions contents write)
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Render SVGs
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_DAYS: ${{ inputs.days }}
+        INPUT_THEME: ${{ inputs.theme }}
+        INPUT_LIGHT_THEME: ${{ inputs.light-theme }}
+        INPUT_OUTPUT_DIR: ${{ inputs.output-dir }}
+        INPUT_SHOW: ${{ inputs.show }}
+        INPUT_EXTRA_ARGS: ${{ inputs.extra-args }}
+      run: bash "$GITHUB_ACTION_PATH/scripts/run.sh"
+    - name: Commit
+      if: inputs.commit == 'true'
+      shell: bash
+      env:
+        OUT: ${{ inputs.output-dir }}
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add "$OUT"
+        if git diff --cached --quiet; then echo "no changes"; else git commit -m "chore: refresh trading terminal" && git push; fi

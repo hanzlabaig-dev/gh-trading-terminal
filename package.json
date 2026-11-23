@@ -1,0 +1,18 @@
+{
+  "name": "gh-trading-terminal",
+  "version": "1.0.0",
+  "description": "GitHub contributions as a Bloomberg/TradingView-style candlestick terminal. Zero-dependency SVG for profile READMEs.",
+  "license": "MIT",
+  "keywords": ["github", "profile-readme", "svg", "contributions", "candlestick", "github-action", "stats"],
+  "repository": { "type": "git", "url": "git+https://github.com/OWNER/gh-trading-terminal.git" },
+  "homepage": "https://github.com/OWNER/gh-trading-terminal#readme",
+  "bugs": { "url": "https://github.com/OWNER/gh-trading-terminal/issues" },
+  "bin": { "gh-trading-terminal": "src/cli.js" },
+  "files": ["src", "api", "scripts", "action.yml", "examples"],
+  "engines": { "node": ">=18.3" },
+  "scripts": {
+    "test": "node --test test/test.js",
+    "demo": "node src/cli.js --user octocat --demo --out dist/demo-dark.svg && node src/cli.js --user octocat --demo --theme light --out dist/demo-light.svg",
+    "previews": "node src/cli.js --user octocat --demo --out assets/preview-dark.svg && node src/cli.js --user octocat --demo --theme bloomberg --days 180 --out assets/preview-bloomberg.svg"
+  }
+}

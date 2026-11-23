@@ -1,0 +1,17 @@
+# Put this in YOUR profile repo (USERNAME/USERNAME) as .github/workflows/terminal.yml
+name: Update trading terminal
+on:
+  schedule: [{ cron: '17 */6 * * *' }]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  terminal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: OWNER/gh-trading-terminal@v1
+        with:
+          days: 90
+          theme: tradingview
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}  # GH_PAT (read:user) adds private contributions
